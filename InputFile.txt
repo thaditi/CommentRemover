@@ -1,0 +1,65 @@
+import java.util.*;
+
+// Merge K sorted linked lists
+
+public class Solution {
+class Node {
+    int data;
+    Node next;
+    Node(int data)
+    {
+        this.data = data;
+        next = null;
+    }
+}
+   // Using min-heap
+   /**Create a min-heap and insert the first element of all the ‘k’ linked lists.
+    * As long as the min-heap is not empty, perform the following steps:
+    *       1. Remove the top element of the min-heap (which is the current minimum 
+    *         among all the elements in the min-heap) and add it to the result list.
+    *       2. If there exists an element (in the same linked list) next to the element
+    *          popped out in previous step, insert it into the min-heap.
+    * Return the head node address of the merged list. 
+    */ 
+
+    // TC-O(nk log n) SC-O(n)
+    public static Node mergeKsortedList1(Node ar[],int k){
+        Node head=null,last=null;
+
+        PriorityQueue<Node> pq = new PriorityQueue<>(new Comparator<Node>(){
+            public int compare(Node a,Node b){
+                return a.data-b.data;
+            }
+        });
+
+
+        for(int i=0;i<k;i++){
+            if(ar[i]!=null)
+                pq.add(ar[i]);
+        }
+
+        while(!pq.isEmpty()){
+            Node top=pq.poll();
+
+            if(top.next!=null)
+                pq.add(top.next);
+            if(head==null){
+                head=top;
+                last=top;
+            }
+            else{
+                last.next=top;
+                last=top;
+            }
+
+        }
+
+        return head;
+    }
+    // using divide and conquer
+    /**Run loop by merging 2 linked lost each time
+     * 
+     */
+    // TC-O(nk log n) SC-O(n)
+
+}

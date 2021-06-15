@@ -1,0 +1,38 @@
+import java.util.*;
+public class Solution {
+class Node {
+    int data;
+    Node next;
+    Node(int data)
+    {
+        this.data = data;
+        next = null;
+    }
+}
+    public static Node mergeKsortedList1(Node ar[],int k){
+        Node head=null,last=null;
+        PriorityQueue<Node> pq = new PriorityQueue<>(new Comparator<Node>(){
+            public int compare(Node a,Node b){
+                return a.data-b.data;
+            }
+        });
+        for(int i=0;i<k;i++){
+            if(ar[i]!=null)
+                pq.add(ar[i]);
+        }
+        while(!pq.isEmpty()){
+            Node top=pq.poll();
+            if(top.next!=null)
+                pq.add(top.next);
+            if(head==null){
+                head=top;
+                last=top;
+            }
+            else{
+                last.next=top;
+                last=top;
+            }
+        }
+        return head;
+    }
+}
